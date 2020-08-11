@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: prod-redis
+  name: prod-redis
+spec:
+  containers:
+  - image: redis:alpine
+    name: prod-redis
+    resources: {}
+  tolerations:
+  - key: "env_type"
+    value: "production"
+    operator: "Equal"
+    effect: "NoSchedule"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}

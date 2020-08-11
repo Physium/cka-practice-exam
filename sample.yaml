@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: deploy-test
+  name: deploy-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: deploy-test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: deploy-test
+    spec:
+      containers:
+      - image: nginx
+        name: deploy-test
+        resources: {}
+status: {}

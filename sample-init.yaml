@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis-storage
+  name: redis-storage
+spec:
+  containers:
+  - image: busybox:1.28
+    name: check-cont
+    command: [sh, -c, "if [ -f '/data/redis/test.txt' ]; then echo 'hello world'; else exit; fi"]
+    volumeMounts:
+    - mountPath: "/data/redis"
+      name: redis-storage
+  initContainers:
+  - image: busybox:1.28
+    name: init-cont
+    command: [sh, -c, "touch /data/redis/test.txt"]
+    volumeMounts:
+    - mountPath: "/data/redis"
+      name: redis-storage
+  volumes:
+    - name: redis-storage
+      emptyDir: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
